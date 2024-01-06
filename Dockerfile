@@ -12,6 +12,10 @@ RUN apt-get update && \
     curl -s https://packagecloud.io/install/repositories/pufferpanel/pufferpanel/script.deb.sh | bash && \
     apt-get install -y pufferpanel
 
+# Download systemctl3.py and set permissions
+RUN curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py && \
+    chmod -R 777 /bin/systemctl
+
 # Set PufferPanel port
 RUN sed -i "s/\"host\": \"0.0.0.0:8080\"/\"host\": \"0.0.0.0:${PUFFER_PANEL_PORT}\"/g" /etc/pufferpanel/config.json
 
